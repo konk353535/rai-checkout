@@ -1,0 +1,16 @@
+.ReactModal__Overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0,.6) !important;
+  z-index: 10000;
+}
+
+.ReactModal__Content {
+  position: initial !important;
+  width: 300px;
+  padding: 0px !important;
+  display: flex;
+  height: 450px;
+  border: 1px solid #DFDFDF;
+}
