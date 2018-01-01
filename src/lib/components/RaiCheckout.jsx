@@ -31,7 +31,6 @@ export default class RaiCheckout extends React.Component {
   }
 
   purchase() {
-    console.log('purhcase method called!');
     // Init the purchase
     fetch('https://pays.eternitytower.net/methods/purchase', {
       method: 'POST',
@@ -52,13 +51,13 @@ export default class RaiCheckout extends React.Component {
         completedAt: null
       });
 
-      console.log('starting pending purchase');
       this.pendingPurchase();
 
       timerInterval = setInterval(() => {
         this.updateSecondsPassed();
       }, 1000);
     }).catch((err) => {
+      console.log(err);
       return this.setState({
         error: err
       })
@@ -66,33 +65,32 @@ export default class RaiCheckout extends React.Component {
   }
 
   pendingPurchase() {
-    fetch('https://pays.eternitytower.net/methods/waitForPendingPurchase', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify([this.state.paymentId])
-    }).then((resRaw) => {
-      return resRaw.json();
-    }).then((res) => {
-      if (res) {
-        // CLIENT should perform there custom logic here (pending payment)
-        this.token({ paymentId: this.state.paymentId, itemId: this.props.itemId });
-        checkInterval = setInterval(() => {
+    if (this.state.accountToPay) {
+      fetch('https://pays.eternitytower.net/methods/waitForPendingPurchase', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify([this.state.paymentId])
+      }).then((resRaw) => {
+        return resRaw.json();
+      }).then((res) => {
+        if (res) {
+          // CLIENT should perform there custom logic here (pending payment)
+          this.token({ paymentId: this.state.paymentId, itemId: this.props.itemId });
           this.checkPurchase();
-        }, 1000);
-      } else {
-        console.log('then of res');
+        } else {
+          setTimeout(() => {
+            this.pendingPurchase();
+          }, 1000);
+        }
+      }).catch((err) => {
+        console.log(err);
         setTimeout(() => {
           this.pendingPurchase();
-        }, 5000);
-      }
-    }).catch((err) => {
-      console.log('catch');
-      setTimeout(() => {
-        this.pendingPurchase();
-      }, 5000);
-    })
+        }, 1000);
+      });
+    }
   }
 
   checkPurchase() {
@@ -132,7 +130,8 @@ export default class RaiCheckout extends React.Component {
 
   closeModal() {
     this.setState({
-      accountToPay: ''
+      accountToPay: '',
+      paymentId: null
     });
     clearInterval(timerInterval);
     clearInterval(checkInterval);
@@ -181,20 +180,7 @@ export default class RaiCheckout extends React.Component {
                     <div>{this.props.subTitle}</div>
                   </div>
                   <div className="d-flex flex-column" style={{ flex: 1 }}>
-                    <div className="px-3">
-                      <div className="mb-1">Send (XRB)</div>
-                      <div className="input-group">
-                        <input type="text" className="form-control" value={amountXRB} disabled={true} />
-                        <div className="input-group-btn">
-                          <CopyToClipboard text={amountXRB} onCopy={() => this.copied('copiedAmount')}>
-                            <button className="btn btn-outline-primary" type="button">
-                              {this.state.copiedAmount ? 'Copied' : 'Copy'}
-                            </button>
-                          </CopyToClipboard>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="mt-3 px-3">
+                    <div className="px-3 mb-3">
                       <div className="mb-1">To</div>
                       <div className="input-group">
                         <input type="text" className="form-control" value={accountToPay} disabled={true} />
@@ -202,6 +188,19 @@ export default class RaiCheckout extends React.Component {
                           <CopyToClipboard text={accountToPay} onCopy={() => this.copied('copiedAddress')}>
                             <button className="btn btn-outline-primary" type="button">
                               {this.state.copiedAddress ? 'Copied' : 'Copy'}
+                            </button>
+                          </CopyToClipboard>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="px-3">
+                      <div className="mb-1">Amount (XRB)</div>
+                      <div className="input-group">
+                        <input type="text" className="form-control" value={amountXRB} disabled={true} />
+                        <div className="input-group-btn">
+                          <CopyToClipboard text={amountXRB} onCopy={() => this.copied('copiedAmount')}>
+                            <button className="btn btn-outline-primary" type="button">
+                              {this.state.copiedAmount ? 'Copied' : 'Copy'}
                             </button>
                           </CopyToClipboard>
                         </div>
