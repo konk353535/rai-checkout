@@ -9,6 +9,12 @@ import './RaiCheckout.css'
 let checkInterval;
 let timerInterval;
 
+const dev = false;
+let BASE_URL = 'https://pays.eternitytower.net';
+if (dev) {
+  BASE_URL = 'http://localhost:3001'
+}
+
 export default class RaiCheckout extends React.Component {
 
   constructor(props) {
@@ -16,6 +22,7 @@ export default class RaiCheckout extends React.Component {
     this.state = {
       accountToPay: '',
       durationPassed: null,
+      publicKey: '',
       error: '',
       copiedAmount: false,
       copiedAddress: false,
@@ -32,12 +39,16 @@ export default class RaiCheckout extends React.Component {
 
   purchase() {
     // Init the purchase
-    fetch('https://pays.eternitytower.net/methods/purchase', {
+    fetch(`${BASE_URL}/api/payment/start`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify([this.props.itemId, this.props.cost])
+      body: JSON.stringify({
+        publicKey: this.props.publicKey,
+        itemId: this.props.itemId,
+        cost: this.props.cost
+      })
     }).then((resRaw) => {
       return resRaw.json();
     }).then((res) => {
@@ -66,19 +77,21 @@ export default class RaiCheckout extends React.Component {
 
   pendingPurchase() {
     if (this.state.accountToPay) {
-      fetch('https://pays.eternitytower.net/methods/waitForPendingPurchase', {
+      fetch(`${BASE_URL}/api/payment/await`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify([this.state.paymentId])
+        body: JSON.stringify({ paymentId: this.state.paymentId })
       }).then((resRaw) => {
         return resRaw.json();
       }).then((res) => {
         if (res) {
           // CLIENT should perform there custom logic here (pending payment)
           this.token({ paymentId: this.state.paymentId, itemId: this.props.itemId });
-          this.checkPurchase();
+          setTimeout(() => {
+            this.checkPurchase();
+          }, 50);
         } else {
           setTimeout(() => {
             this.pendingPurchase();
@@ -93,13 +106,13 @@ export default class RaiCheckout extends React.Component {
     }
   }
 
-  checkPurchase() {
-    fetch('https://pays.eternitytower.net/methods/checkPurchase', {
+  checkPurchase(attempt = 0) {
+    fetch(`${BASE_URL}/api/payment/check`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify([this.state.paymentId])
+      body: JSON.stringify({ paymentId: this.state.paymentId })
     }).then((resRaw) => {
       return resRaw.json();
     }).then((res) => {
@@ -117,6 +130,12 @@ export default class RaiCheckout extends React.Component {
             amountXRB: null
           });
         }, 3000);
+      } else {
+        if (attempt < 10) {
+          setTimeout(() => {
+            this.checkPurchase(attempt + 1);
+          }, attempt * 1000);
+        }
       }
     });
   }
