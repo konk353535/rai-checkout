@@ -1,18 +1,17 @@
 {
-  "name": "rai-checkout",
-  "version": "1.1.0",
-  "description": "React NPM library starter kit based on Facebook's create react app",
+  "name": "rais-pays-checkout",
+  "version": "0.0.1",
+  "description": "RaiBlocks Checkout for React",
   "main": "build/index.js",
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },
-  "author": "Dimitri Mikadze <dimitri@udilia.com>",
   "bugs": {
-    "url": "https://github.com/udiliaInc/rai-checkout/issues"
+    "url": "https://github.com/konk353535/rai-checkout/issues"
   },
-  "homepage": "https://github.com/udiliaInc/rai-checkout#readme",
+  "homepage": "https://github.com/konk353535/rai-checkout#readme",
   "license": "MIT",
   "dependencies": {
     "react-copy-to-clipboard": "^5.0.1",
@@ -63,40 +62,6 @@
   "peerDependencies": {
     "react": ">=0.14",
     "react-dom": ">=0.14"
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,mjs}"
-    ],
-    "setupFiles": [
-      "<rootDir>/config/polyfills.js"
-    ],
-    "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
-      "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs}"
-    ],
-    "testEnvironment": "node",
-    "testURL": "http://localhost",
-    "transform": {
-      "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",
-      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
-      "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
-    },
-    "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
-    ],
-    "moduleNameMapper": {
-      "^react-native$": "react-native-web"
-    },
-    "moduleFileExtensions": [
-      "web.js",
-      "mjs",
-      "js",
-      "json",
-      "web.jsx",
-      "jsx",
-      "node"
-    ]
   },
   "babel": {
     "presets": [
