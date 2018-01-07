@@ -1,6 +1,6 @@
 {
   "name": "rais-pays-checkout",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "RaiBlocks Checkout for React",
   "main": "build/index.js",
   "scripts": {
