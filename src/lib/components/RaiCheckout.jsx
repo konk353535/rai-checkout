@@ -11,9 +11,10 @@ let timerInterval;
 
 const dev = false;
 let BASE_URL = 'https://arrowpay.io';
+/*
 if (dev) {
   BASE_URL = 'http://localhost:3001'
-}
+}*/
 
 export default class RaiCheckout extends React.Component {
 
