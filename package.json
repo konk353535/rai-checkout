@@ -1,7 +1,7 @@
 {
-  "name": "rais-pays-checkout",
+  "name": "arrowpay-react-checkout",
   "version": "0.1.0",
-  "description": "RaiBlocks Checkout for React",
+  "description": "Arrowpays checkout for react",
   "main": "build/index.js",
   "scripts": {
     "start": "node scripts/start.js",
