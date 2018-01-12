@@ -1,6 +1,6 @@
 {
   "name": "arrowpay-react-checkout",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Arrowpays checkout for react",
   "main": "build/index.js",
   "scripts": {
