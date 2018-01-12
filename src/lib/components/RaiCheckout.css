@@ -126,6 +126,18 @@
   border-color: #4482CC;
 }
 
+.ReactModal__Content .btn-success {
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.ReactModal__Content .btn-outline-success:hover, .ReactModal__Content .btn-success:hover {
+  color: #fff;
+  background-color: #218838;
+  border-color: #1e7e34;
+}
+
 .ReactModal__Content .btn-primary {
   border-color: #4482CC;
   background-color: #4482CC;

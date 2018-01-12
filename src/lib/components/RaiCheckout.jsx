@@ -145,6 +145,11 @@ export default class RaiCheckout extends React.Component {
 
   updateSecondsPassed() {
     const durationPassed = moment.duration(moment().diff(this.state.startedAt));
+
+    if (durationPassed > 10 * 60 * 1000) {
+      return this.closeModal();
+    }
+
     this.setState({
       durationPassed
     })
@@ -175,6 +180,7 @@ export default class RaiCheckout extends React.Component {
     const amountXRB = this.state.amountXRB;
     const amountUSD = (this.state.amountUSD / 100).toFixed(2);
     const durationPassed = this.state.durationPassed;
+    const redDuration = durationPassed > 5 * 60 * 1000;
     const durationRemaining = (10 * 60 * 1000) - durationPassed;
     const classes = this.props.classes;
 
@@ -231,26 +237,6 @@ export default class RaiCheckout extends React.Component {
                     </div>
                   </div>
                   <div style={{ display: 'flex', flex: 1 }}>
-                  {
-                    this.state.completed ?
-                      <div className="rai-modal-body" style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        flex: 1
-                      }}>
-                        <h4 style={{marginBottom: '1rem', color: '#28a745'}}>
-                          Payment Complete
-                        </h4>
-                        <div style={{marginBottom: 100}}>
-                          <svg fill="#28A745" width={90} version="1.1" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100">
-                            <path d="M74.042,35.27c-1.388-1.344-3.604-1.31-4.949,0.08L42,63.333L27.938,50.422c-1.424-1.308-3.638-1.213-4.945,0.211  s-1.213,3.638,0.211,4.945l16.572,15.216c0.671,0.616,1.52,0.922,2.366,0.922c0.916,0,1.83-0.357,2.516-1.065l29.464-30.432  C75.467,38.83,75.431,36.614,74.042,35.27z M50,8.5C27.117,8.5,8.5,27.117,8.5,50S27.117,91.5,50,91.5S91.5,72.883,91.5,50  S72.883,8.5,50,8.5z M50,84.5c-19.023,0-34.5-15.477-34.5-34.5S30.977,15.5,50,15.5S84.5,30.977,84.5,50S69.023,84.5,50,84.5z">
-                            </path>
-                          </svg>
-                        </div>
-                      </div>
-                    : 
                     <div className="rai-modal-body" style={{
                       display: 'flex',
                       flexDirection: 'column',
@@ -314,35 +300,60 @@ export default class RaiCheckout extends React.Component {
                             </div>
                           </div>
                         </div>
-                        <div className="p-3" style={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          justifyContent: 'flex-end',
-                          flex: 1
-                        }}>
-                          <span style={{
-                            fontSize: 12,
-                            color: '#868e96',
-                            textAlign: 'right'
-                          }}>
-                            Awaiting Payment {moment.duration(durationRemaining).minutes()} : {moment.duration(durationRemaining).seconds()}
-                          </span>
-                          <button className="btn btn-primary" style={{
-                            display: 'block',
-                            width: '100%',
-                            marginTop: '0.25rem'
-                          }}>
-                            Open in wallet
-                          </button>
-                        </div>
+
+                          {
+                            this.state.completedAt ?
+                              <div className="p-3" style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'flex-end',
+                                flex: 1
+                              }}>
+                                <button className="btn btn-success" style={{
+                                  display: 'block',
+                                  width: '100%',
+                                  marginTop: '0.25rem'
+                                }}>
+                                 Payment Complete
+                                </button>
+                              </div>
+                            : 
+                            <div className="p-3" style={{
+                              display: 'flex',
+                              flexDirection: 'column',
+                              justifyContent: 'flex-end',
+                              flex: 1
+                            }}>
+                              <span style={{
+                                fontSize: 12,
+                                color: redDuration ? '#dc3545' : '#868e96',
+                                textAlign: 'right'
+                              }}>
+                                Awaiting Payment {moment.duration(durationRemaining).minutes()} : {moment.duration(durationRemaining).seconds()}
+                              </span>
+                              <button className="btn btn-primary" style={{
+                                display: 'block',
+                                width: '100%',
+                                marginTop: '0.25rem'
+                              }}>
+                                Open in wallet
+                              </button>
+                            </div>
+                          }
                       </div>
                     </div>
-                  }
                   </div>
                 </div>
               </Modal>
+            : <div></div>
+          }
+          {
+            this.state.completedAt ?
+              <button className='btn btn-success'>
+                Payment Complete
+              </button>
             :
-            <button className={`${classes} btn btn-primary`} onClick={() => this.purchase()}>
+            <button className='btn btn-primary' onClick={() => this.purchase()}>
               {this.props.text}
             </button>
           }
