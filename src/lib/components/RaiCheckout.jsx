@@ -193,17 +193,21 @@ export default class RaiCheckout extends React.Component {
               <Modal
                 isOpen={true}
                 contentLabel="Modal"
+                className="ReactModal__Content arrowpay-checkout"
               >
                 <div style={{
                   flex: 1,
                   display: 'flex',
                   flexDirection: 'column',
-                  position: 'relative'
+                  position: 'relative',
+                  outline: 'none'
                 }}>
                   <div className="bg-primary px-3" style={{
                     display: 'flex',
                     paddingTop: '0.5rem',
-                    paddingBottom: '0.5rem'
+                    paddingBottom: '0.5rem',
+                    borderTopLeftRadius: 4,
+                    borderTopRightRadius: 4
                   }}>
                     <div style={{color: '#FFF', display: 'flex', alignItems: 'center'}}>
                       <img src="./arrowLogoWhite.png" style={{marginRight: '0.25rem'}} height={18} />

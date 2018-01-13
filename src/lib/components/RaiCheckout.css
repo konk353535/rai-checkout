@@ -1,5 +1,5 @@
 /* Styles from bootstrap */
-.ReactModal__Content .btn {
+.arrowpay-checkout .btn {
   display: inline-block;
   font-weight: 400;
   text-align: center;
@@ -15,52 +15,57 @@
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.ReactModal__Content .btn:focus {
+.arrowpay-checkout .btn:focus {
   box-shadow: none;
   outline: none;
 }
 
-.ReactModal__Content .btn-primary {
+.arrowpay-checkout .btn-primary {
   background-color: #4482CC;
   border-color: #4482CC;
 }
 
-.ReactModal__Content .px-3 {
+.arrowpay-checkout .px-3 {
   padding-left: 1rem;
   padding-right: 1rem;
 }
 
-.ReactModal__Contentpy-3 {
+.arrowpay-checkout .py-3 {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
 
-.ReactModal__Content.p-3 {
+.arrowpay-checkout .p-3 {
   padding-top: 1rem;
   padding-bottom: 1rem;
   padding-left: 1rem;
   padding-right: 1rem;
 }
 
-.ReactModal__Content.input-group .form-control:not(:last-child), .input-group .custom-select:not(:last-child) {
+.arrowpay-checkout .input-group .form-control:not(:last-child), .arrowpay-checkout .input-group .custom-select:not(:last-child) {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-.ReactModal__Content.input-group .form-control, .input-group .custom-select, .input-group .custom-file {
+.arrowpay-checkout .input-group .form-control, .arrowpay-checkout .input-group .custom-select, .arrowpay-checkout .input-group .custom-file {
   position: relative;
   flex: 1 1 auto;
   width: 1%;
   margin-bottom: 0;
 }
 
-.ReactModal__Content.form-control:disabled, .form-control[readonly] {
+.arrowpay-checkout .form-control:disabled, .form-control[readonly] {
   background-color: #e9ecef;
   opacity: 1;
   cursor: default;
 }
 
-.ReactModal__Content.form-control {
+.arrowpay-checkout {
+  font-family: 'Open Sans', sans-serif;
+  outline: none;
+}
+
+.arrowpay-checkout .form-control {
   display: block;
   width: 100%;
   padding: 0.375rem 0.75rem;
@@ -74,7 +79,7 @@
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.ReactModal__Content.input-group {
+.arrowpay-checkout .input-group {
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -101,37 +106,39 @@
   background: none !important;
 }
 
-.ReactModal__Content .close {
+.arrowpay-checkout .close {
   text-shadow: none !important;
 }
 
-.ReactModal__Content .rai-modal-body {
+.arrowpay-checkout .rai-modal-body {
   background: white;
   flex: 1;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
 }
 
-.ReactModal__Content .text-primary {
+.arrowpay-checkout .text-primary {
   color: #4482CC;
 }
 
-.ReactModal__Content .bg-primary {  
+.arrowpay-checkout .bg-primary {  
   background-color: #4482CC;
 }
 
-.ReactModal__Content .btn-outline-primary {
+.arrowpay-checkout .btn-outline-primary {
   color: #4482CC;
   background-color: transparent;
   background-image: none;
   border-color: #4482CC;
 }
 
-.ReactModal__Content .btn-success {
+.arrowpay-checkout .btn-success {
   color: #fff;
   background-color: #28a745;
   border-color: #28a745;
 }
 
-.ReactModal__Content .btn-outline-success:hover, .btn-success:hover {
+.arrowpay-checkout .btn-outline-success:hover, .btn-success:hover {
   color: #fff;
   background-color: #218838;
   border-color: #1e7e34;
@@ -149,7 +156,7 @@
   color: white;
 }
 
-.ReactModal__Content .copyable-group > input {
+.arrowpay-checkout .copyable-group > input {
   border-right: none;
 }
 
@@ -158,14 +165,14 @@
   border-top-left-radius: 0px;
 }
 
-.ReactModal__Content button.close {
+.arrowpay-checkout button.close {
   padding: 0;
   background-color: transparent;
   border: 0;
   -webkit-appearance: none;
 }
 
-.ReactModal__Content .close {
+.arrowpay-checkout .close {
   float: right;
   cursor: pointer;
   font-size: 1.5rem;
@@ -176,9 +183,9 @@
   opacity: .5;
 }
 
-.ReactModal__Content .btn-outline-primary:not([disabled]):not(.disabled):active,
-.ReactModal__Content .btn-outline-primary:not([disabled]):not(.disabled).active,
-.ReactModal__Content .show > .btn-outline-primary.dropdown-toggle {
+.arrowpay-checkout .btn-outline-primary:not([disabled]):not(.disabled):active,
+.arrowpay-checkout .btn-outline-primary:not([disabled]):not(.disabled).active,
+.arrowpay-checkout .show > .btn-outline-primary.dropdown-toggle {
   color: #212529;
   background-color: #4482CC;
   border-color: #4482CC;
