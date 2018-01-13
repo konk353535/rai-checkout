@@ -1,5 +1,5 @@
 /* Styles from bootstrap */
-.btn {
+.ReactModal__Content .btn {
   display: inline-block;
   font-weight: 400;
   text-align: center;
@@ -15,52 +15,52 @@
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.btn:focus {
+.ReactModal__Content .btn:focus {
   box-shadow: none;
   outline: none;
 }
 
-.btn-primary {
+.ReactModal__Content .btn-primary {
   background-color: #4482CC;
   border-color: #4482CC;
 }
 
-.px-3 {
+.ReactModal__Content .px-3 {
   padding-left: 1rem;
   padding-right: 1rem;
 }
 
-.py-3 {
+.ReactModal__Contentpy-3 {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
 
-.p-3 {
+.ReactModal__Content.p-3 {
   padding-top: 1rem;
   padding-bottom: 1rem;
   padding-left: 1rem;
   padding-right: 1rem;
 }
 
-.input-group .form-control:not(:last-child), .input-group .custom-select:not(:last-child) {
+.ReactModal__Content.input-group .form-control:not(:last-child), .input-group .custom-select:not(:last-child) {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-.input-group .form-control, .input-group .custom-select, .input-group .custom-file {
+.ReactModal__Content.input-group .form-control, .input-group .custom-select, .input-group .custom-file {
   position: relative;
   flex: 1 1 auto;
   width: 1%;
   margin-bottom: 0;
 }
 
-.form-control:disabled, .form-control[readonly] {
+.ReactModal__Content.form-control:disabled, .form-control[readonly] {
   background-color: #e9ecef;
   opacity: 1;
   cursor: default;
 }
 
-.form-control {
+.ReactModal__Content.form-control {
   display: block;
   width: 100%;
   padding: 0.375rem 0.75rem;
@@ -74,7 +74,7 @@
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.input-group {
+.ReactModal__Content.input-group {
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -83,7 +83,6 @@
 }
 
 /* Not bootstrap related */
-
 .ReactModal__Overlay {
   display: flex;
   justify-content: center;
@@ -102,59 +101,59 @@
   background: none !important;
 }
 
-.close {
+.ReactModal__Content .close {
   text-shadow: none !important;
 }
 
-.rai-modal-body {
+.ReactModal__Content .rai-modal-body {
   background: white;
   flex: 1;
 }
 
-.text-primary {
+.ReactModal__Content .text-primary {
   color: #4482CC;
 }
 
-.bg-primary {  
+.ReactModal__Content .bg-primary {  
   background-color: #4482CC;
 }
 
-.btn-outline-primary {
+.ReactModal__Content .btn-outline-primary {
   color: #4482CC;
   background-color: transparent;
   background-image: none;
   border-color: #4482CC;
 }
 
-.btn-success {
+.ReactModal__Content .btn-success {
   color: #fff;
   background-color: #28a745;
   border-color: #28a745;
 }
 
-.btn-outline-success:hover, .btn-success:hover {
+.ReactModal__Content .btn-outline-success:hover, .btn-success:hover {
   color: #fff;
   background-color: #218838;
   border-color: #1e7e34;
 }
 
-.btn-primary {
+.arrowpay-checkout .btn-primary {
   border-color: #4482CC;
   background-color: #4482CC;
   color: white;
 }
 
-.btn-outline-primary:hover, .btn-primary:hover {
+.arrowpay-checkout .btn-outline-primary:hover, .btn-primary:hover {
   background-color: #326fb8;
   border-color: #2f69ae;
   color: white;
 }
 
-.copyable-group > input {
+.ReactModal__Content .copyable-group > input {
   border-right: none;
 }
 
-.copyable-group button {
+.arrowpay-checkout .copyable-group button {
   border-bottom-left-radius: 0px;
   border-top-left-radius: 0px;
 }
@@ -166,7 +165,7 @@
   -webkit-appearance: none;
 }
 
-.close {
+.ReactModal__Content .close {
   float: right;
   cursor: pointer;
   font-size: 1.5rem;
@@ -177,9 +176,9 @@
   opacity: .5;
 }
 
-.btn-outline-primary:not([disabled]):not(.disabled):active,
-.btn-outline-primary:not([disabled]):not(.disabled).active,
-.show > .btn-outline-primary.dropdown-toggle {
+.ReactModal__Content .btn-outline-primary:not([disabled]):not(.disabled):active,
+.ReactModal__Content .btn-outline-primary:not([disabled]):not(.disabled).active,
+.ReactModal__Content .show > .btn-outline-primary.dropdown-toggle {
   color: #212529;
   background-color: #4482CC;
   border-color: #4482CC;
