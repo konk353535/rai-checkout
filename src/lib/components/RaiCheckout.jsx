@@ -210,7 +210,7 @@ export default class RaiCheckout extends React.Component {
                     borderTopRightRadius: 4
                   }}>
                     <div style={{color: '#FFF', display: 'flex', alignItems: 'center'}}>
-                      <img src="./arrowLogoWhite.png" style={{marginRight: '0.25rem'}} height={18} />
+                      <img src="http://arrowpay.io/arrowLogo.png" style={{marginRight: '0.25rem'}} height={18} />
                       <span>ArrowPay</span>
                     </div>
                     <div style={{
