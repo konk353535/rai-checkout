@@ -1,5 +1,5 @@
 /* Styles from bootstrap */
-.ReactModal__Content .btn {
+.btn {
   display: inline-block;
   font-weight: 400;
   text-align: center;
@@ -15,27 +15,27 @@
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.ReactModal__Content .btn:focus {
+.btn:focus {
   box-shadow: none;
   outline: none;
 }
 
-.ReactModal__Content .btn-primary {
+.btn-primary {
   background-color: #4482CC;
   border-color: #4482CC;
 }
 
-.ReactModal__Content .px-3 {
+.px-3 {
   padding-left: 1rem;
   padding-right: 1rem;
 }
 
-.ReactModal__Content .py-3 {
+.py-3 {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
 
-.ReactModal__Content .p-3 {
+.p-3 {
   padding-top: 1rem;
   padding-bottom: 1rem;
   padding-left: 1rem;
@@ -102,59 +102,59 @@
   background: none !important;
 }
 
-.ReactModal__Content .close {
+.close {
   text-shadow: none !important;
 }
 
-.ReactModal__Content .rai-modal-body {
+.rai-modal-body {
   background: white;
   flex: 1;
 }
 
-.ReactModal__Content .text-primary {
+.text-primary {
   color: #4482CC;
 }
 
-.ReactModal__Content .bg-primary {  
+.bg-primary {  
   background-color: #4482CC;
 }
 
-.ReactModal__Content .btn-outline-primary {
+.btn-outline-primary {
   color: #4482CC;
   background-color: transparent;
   background-image: none;
   border-color: #4482CC;
 }
 
-.ReactModal__Content .btn-success {
+.btn-success {
   color: #fff;
   background-color: #28a745;
   border-color: #28a745;
 }
 
-.ReactModal__Content .btn-outline-success:hover, .ReactModal__Content .btn-success:hover {
+.btn-outline-success:hover, .btn-success:hover {
   color: #fff;
   background-color: #218838;
   border-color: #1e7e34;
 }
 
-.ReactModal__Content .btn-primary {
+.btn-primary {
   border-color: #4482CC;
   background-color: #4482CC;
   color: white;
 }
 
-.ReactModal__Content .btn-outline-primary:hover, .ReactModal__Content .btn-primary:hover {
+.btn-outline-primary:hover, .btn-primary:hover {
   background-color: #326fb8;
   border-color: #2f69ae;
   color: white;
 }
 
-.ReactModal__Content .copyable-group > input {
+.copyable-group > input {
   border-right: none;
 }
 
-.ReactModal__Content .copyable-group button {
+.copyable-group button {
   border-bottom-left-radius: 0px;
   border-top-left-radius: 0px;
 }
@@ -166,7 +166,7 @@
   -webkit-appearance: none;
 }
 
-.ReactModal__Content .close {
+.close {
   float: right;
   cursor: pointer;
   font-size: 1.5rem;
@@ -177,9 +177,9 @@
   opacity: .5;
 }
 
-.ReactModal__Content .btn-outline-primary:not([disabled]):not(.disabled):active,
-.ReactModal__Content .btn-outline-primary:not([disabled]):not(.disabled).active,
-.ReactModal__Content .show > .btn-outline-primary.dropdown-toggle {
+.btn-outline-primary:not([disabled]):not(.disabled):active,
+.btn-outline-primary:not([disabled]):not(.disabled).active,
+.show > .btn-outline-primary.dropdown-toggle {
   color: #212529;
   background-color: #4482CC;
   border-color: #4482CC;
