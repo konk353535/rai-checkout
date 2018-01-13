@@ -11,6 +11,7 @@ let timerInterval;
 
 const dev = false;
 let BASE_URL = 'https://arrowpay.io';
+
 /*
 if (dev) {
   BASE_URL = 'http://localhost:3001'
@@ -29,14 +30,14 @@ export default class RaiCheckout extends React.Component {
       copiedAddress: false,
       amountXRB: null,
       amountUSD: null,
-      paymentId: null,
+      token: null,
       completed: false,
       completedAt: null
     }
   }
 
-  token({ paymentId, itemId }) {
-    this.props.token({ paymentId, itemId });
+  onPaymentConfirmed({ token, itemId }) {
+    this.props.onPaymentConfirmed({ token, itemId });
   }
 
   purchase() {
@@ -49,7 +50,7 @@ export default class RaiCheckout extends React.Component {
       body: JSON.stringify({
         publicKey: this.props.publicKey,
         itemId: this.props.itemId,
-        cost: this.props.cost
+        amount: this.props.amount
       })
     }).then((resRaw) => {
       return resRaw.json();
@@ -60,7 +61,7 @@ export default class RaiCheckout extends React.Component {
         startedAt: moment().toDate(),
         amountXRB: res.amountXRB,
         amountUSD: res.amountUSD,
-        paymentId: res.paymentId,
+        token: res.token,
         completed: false,
         completedAt: null
       });
@@ -85,13 +86,13 @@ export default class RaiCheckout extends React.Component {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ paymentId: this.state.paymentId })
+        body: JSON.stringify({ token: this.state.token })
       }).then((resRaw) => {
         return resRaw.json();
       }).then((res) => {
         if (res) {
           // CLIENT should perform there custom logic here (pending payment)
-          this.token({ paymentId: this.state.paymentId, itemId: this.props.itemId });
+          this.onPaymentConfirmed({ token: this.state.token, itemId: this.props.itemId });
           setTimeout(() => {
             this.checkPurchase();
           }, 50);
@@ -115,7 +116,7 @@ export default class RaiCheckout extends React.Component {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ paymentId: this.state.paymentId })
+      body: JSON.stringify({ token: this.state.token })
     }).then((resRaw) => {
       return resRaw.json();
     }).then((res) => {
@@ -158,7 +159,7 @@ export default class RaiCheckout extends React.Component {
   closeModal() {
     this.setState({
       accountToPay: '',
-      paymentId: null
+      token: null
     });
     clearInterval(timerInterval);
     clearInterval(checkInterval);
@@ -185,7 +186,7 @@ export default class RaiCheckout extends React.Component {
     const classes = this.props.classes;
 
     return (
-      <div>
+      <div className="arrowpay-checkout">
         <div>
           {
             accountToPay ?
