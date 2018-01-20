@@ -358,11 +358,11 @@ export default class RaiCheckout extends React.Component {
           }
           {
             this.state.completed_at ?
-              <button className='btn btn-success'>
+              <button className={`btn btn-success ${this.props.buttonClasses}`}>
                 Payment Complete
               </button>
             :
-            <button className='btn btn-primary' onClick={() => this.purchase()}>
+            <button className={`btn btn-primary ${this.props.buttonClasses}`} onClick={() => this.purchase()}>
               {this.props.text}
             </button>
           }

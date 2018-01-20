@@ -122,7 +122,7 @@
 }
 
 .arrowpay-checkout .bg-primary {  
-  background-color: #4482CC;
+  background-color: #4482CC !important;
 }
 
 .arrowpay-checkout .btn-outline-primary {
