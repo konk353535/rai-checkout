@@ -9,35 +9,33 @@ import './RaiCheckout.css'
 let checkInterval;
 let timerInterval;
 
-const dev = false;
 let BASE_URL = 'https://arrowpay.io';
-
-/*
-if (dev) {
-  BASE_URL = 'http://localhost:3001'
-}*/
 
 export default class RaiCheckout extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      accountToPay: '',
+      account_to: '',
       durationPassed: null,
-      publicKey: '',
+      public_key: '',
       error: '',
       copiedAmount: false,
       copiedAddress: false,
-      amountXRB: null,
-      amountUSD: null,
+      amount_XRB: null,
+      amount_usd: 0,
       token: null,
       completed: false,
-      completedAt: null
+      completed_at: null
+    }
+
+    if (this.props.dev) {
+      BASE_URL = 'http://localhost:3001';
     }
   }
 
-  onPaymentConfirmed({ token, itemId }) {
-    this.props.onPaymentConfirmed({ token, itemId });
+  onPaymentConfirmed({ token, item_id }) {
+    this.props.onPaymentConfirmed({ token, item_id });
   }
 
   purchase() {
@@ -48,22 +46,25 @@ export default class RaiCheckout extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        publicKey: this.props.publicKey,
-        itemId: this.props.itemId,
-        amount: this.props.amount
+        public_key: this.props.public_key,
+        item_id: this.props.item_id,
+        payment: {
+          currency: this.props.payment.currency,
+          amount: this.props.payment.amount
+        }
       })
     }).then((resRaw) => {
       return resRaw.json();
     }).then((res) => {
 
       this.setState({
-        accountToPay: res.accountToPay,
-        startedAt: moment().toDate(),
-        amountXRB: res.amountXRB,
-        amountUSD: res.amountUSD,
+        account_to: res.account_to,
+        started_at: moment().toDate(),
+        amount_XRB: res.amount_XRB,
+        amount_usd: res.amount_usd,
         token: res.token,
         completed: false,
-        completedAt: null
+        completed_at: null
       });
 
       this.pendingPurchase();
@@ -80,7 +81,7 @@ export default class RaiCheckout extends React.Component {
   }
 
   pendingPurchase() {
-    if (this.state.accountToPay) {
+    if (this.state.account_to) {
       fetch(`${BASE_URL}/api/payment/await`, {
         method: 'POST',
         headers: {
@@ -92,7 +93,7 @@ export default class RaiCheckout extends React.Component {
       }).then((res) => {
         if (res) {
           // CLIENT should perform there custom logic here (pending payment)
-          this.onPaymentConfirmed({ token: this.state.token, itemId: this.props.itemId });
+          this.onPaymentConfirmed({ token: this.state.token, item_id: this.props.item_id });
           setTimeout(() => {
             this.checkPurchase();
           }, 50);
@@ -120,18 +121,18 @@ export default class RaiCheckout extends React.Component {
     }).then((resRaw) => {
       return resRaw.json();
     }).then((res) => {
-      if (res.completedAt) {
+      if (res.completed_at) {
         clearInterval(checkInterval);
         clearInterval(timerInterval);
         this.setState({
-          completedAt: res.completedAt,
+          completed_at: res.completed_at,
           completed: true
         });
 
         setTimeout(() => {
           this.setState({
-            accountToPay: '',
-            amountXRB: null
+            account_to: '',
+            amount_XRB: null
           });
         }, 3000);
       } else {
@@ -145,7 +146,7 @@ export default class RaiCheckout extends React.Component {
   }
 
   updateSecondsPassed() {
-    const durationPassed = moment.duration(moment().diff(this.state.startedAt));
+    const durationPassed = moment.duration(moment().diff(this.state.started_at));
 
     if (durationPassed > 10 * 60 * 1000) {
       return this.closeModal();
@@ -158,7 +159,7 @@ export default class RaiCheckout extends React.Component {
 
   closeModal() {
     this.setState({
-      accountToPay: '',
+      account_to: '',
       token: null
     });
     clearInterval(timerInterval);
@@ -177,9 +178,12 @@ export default class RaiCheckout extends React.Component {
   }
 
   render() {
-    const accountToPay = this.state.accountToPay;
-    const amountXRB = this.state.amountXRB;
-    const amountUSD = (this.state.amountUSD / 100).toFixed(2);
+    const account_to = this.state.account_to;
+    const amount_XRB = this.state.amount_XRB;
+    let amount_usd = this.state.amount_usd.toFixed(2);
+    if (this.state.amount_usd < 0.1) {
+      amount_usd = this.state.amount_usd.toFixed(3);
+    }
     const durationPassed = this.state.durationPassed;
     const redDuration = durationPassed > 5 * 60 * 1000;
     const durationRemaining = (10 * 60 * 1000) - durationPassed;
@@ -189,7 +193,7 @@ export default class RaiCheckout extends React.Component {
       <div className="arrowpay-checkout">
         <div>
           {
-            accountToPay ?
+            account_to ?
               <Modal
                 isOpen={true}
                 contentLabel="Modal"
@@ -262,7 +266,7 @@ export default class RaiCheckout extends React.Component {
                           flexDirection: 'column'
                         }}>
                           <div><b>{this.props.title}</b></div>
-                          <div>{this.props.subTitle}</div>
+                          <div>{this.props.sub_title}</div>
                         </div>
                         <div style={{
                           display: 'flex',
@@ -271,7 +275,7 @@ export default class RaiCheckout extends React.Component {
                           flex: 1
                         }}>
                           <div>Total</div>
-                          <div>${amountUSD} USD</div>
+                          <div>${amount_usd} USD</div>
                         </div>
                       </div>
                       <div style={{
@@ -282,9 +286,9 @@ export default class RaiCheckout extends React.Component {
                         <div className="px-3" style={{marginBottom: '1rem'}}>
                           <div style={{marginBottom: '0.25rem'}}>To</div>
                           <div className="input-group copyable-group">
-                            <input type="text" className="form-control" value={accountToPay} disabled={true} />
+                            <input type="text" className="form-control" value={account_to} disabled={true} />
                             <div className="input-group-btn">
-                              <CopyToClipboard text={accountToPay} onCopy={() => this.copied('copiedAddress')}>
+                              <CopyToClipboard text={account_to} onCopy={() => this.copied('copiedAddress')}>
                                 <button className="btn btn-outline-primary" type="button">
                                   {this.state.copiedAddress ? 'Copied' : 'Copy'}
                                 </button>
@@ -295,9 +299,9 @@ export default class RaiCheckout extends React.Component {
                         <div className="px-3">
                           <div style={{marginBottom: '0.25rem'}}>Amount (XRB)</div>
                           <div className="input-group copyable-group">
-                            <input type="text" className="form-control" value={amountXRB} disabled={true} />
+                            <input type="text" className="form-control" value={amount_XRB} disabled={true} />
                             <div className="input-group-btn">
-                              <CopyToClipboard text={amountXRB} onCopy={() => this.copied('copiedAmount')}>
+                              <CopyToClipboard text={amount_XRB} onCopy={() => this.copied('copiedAmount')}>
                                 <button className="btn btn-outline-primary" type="button">
                                   {this.state.copiedAmount ? 'Copied' : 'Copy'}
                                 </button>
@@ -307,7 +311,7 @@ export default class RaiCheckout extends React.Component {
                         </div>
 
                           {
-                            this.state.completedAt ?
+                            this.state.completed_at ?
                               <div className="p-3" style={{
                                 display: 'flex',
                                 flexDirection: 'column',
@@ -353,7 +357,7 @@ export default class RaiCheckout extends React.Component {
             : <div></div>
           }
           {
-            this.state.completedAt ?
+            this.state.completed_at ?
               <button className='btn btn-success'>
                 Payment Complete
               </button>
