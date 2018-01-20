@@ -340,13 +340,17 @@ export default class RaiCheckout extends React.Component {
                               }}>
                                 Awaiting Payment {moment.duration(durationRemaining).minutes()} : {moment.duration(durationRemaining).seconds()}
                               </span>
-                              <button className="btn btn-primary" style={{
+                              <a
+                                className="btn btn-primary"
+                                href={`https://pay.raiwallet.com/?token=${this.state.token}`}
+                                target="_blank"
+                                style={{
                                 display: 'block',
                                 width: '100%',
                                 marginTop: '0.25rem'
                               }}>
                                 Open in wallet
-                              </button>
+                              </a>
                             </div>
                           }
                       </div>
