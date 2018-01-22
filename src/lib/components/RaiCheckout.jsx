@@ -342,9 +342,8 @@ export default class RaiCheckout extends React.Component {
                                 href={`https://pay.raiwallet.com/?token=${this.state.token}`}
                                 target="_blank"
                                 style={{
-                                display: 'block',
-                                width: '100%',
-                                marginTop: '0.25rem'
+                                marginTop: '0.25rem',
+                                textDecoration: 'none'
                               }}>
                                 Open in raiwallet
                               </a>
