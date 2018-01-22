@@ -181,9 +181,6 @@ export default class RaiCheckout extends React.Component {
     const account_to = this.state.account_to;
     const amount_XRB = this.state.amount_XRB;
     let amount_usd = this.state.amount_usd.toFixed(2);
-    if (this.state.amount_usd < 0.1) {
-      amount_usd = this.state.amount_usd.toFixed(3);
-    }
     const durationPassed = this.state.durationPassed;
     const redDuration = durationPassed > 5 * 60 * 1000;
     const durationRemaining = (10 * 60 * 1000) - durationPassed;
@@ -349,7 +346,7 @@ export default class RaiCheckout extends React.Component {
                                 width: '100%',
                                 marginTop: '0.25rem'
                               }}>
-                                Open in wallet
+                                Open in raiwallet
                               </a>
                             </div>
                           }
