@@ -42,6 +42,18 @@ export default class RaiCheckout extends React.Component {
     this.props.onPaymentConfirmed({ token, item_id });
   }
 
+  prePurchase() {
+    if (this.props.onClick) {
+      return this.props.onClick().then((result) => {
+        if (result) {
+          this.purchase();
+        }
+      });
+    }
+
+    this.purchase();
+  }
+
   purchase() {
     // Init the purchase
     fetch(`${BASE_URL}/api/payment/start`, {
@@ -224,7 +236,7 @@ export default class RaiCheckout extends React.Component {
                     borderTopRightRadius: 4
                   }}>
                     <div style={{color: '#FFF', display: 'flex', alignItems: 'center'}}>
-                      <img src="http://arrowpay.io/arrowLogoWhite.png" style={{marginRight: '0.25rem'}} height={18} />
+                      <img src="http://arrowpay.io/arrowLogoWhite.png" style={{marginRight: '0.25rem', height: 18}} height={18} />
                       <span>ArrowPay</span>
                     </div>
                     <div style={{
@@ -375,7 +387,7 @@ export default class RaiCheckout extends React.Component {
                 Payment Complete
               </button>
             :
-            <button className={`btn btn-primary ${this.props.buttonClasses}`} onClick={() => this.purchase()}>
+            <button className={`btn btn-primary ${this.props.buttonClasses}`} onClick={() => this.prePurchase()}>
               {this.props.text}
             </button>
           }
