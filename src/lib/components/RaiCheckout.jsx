@@ -12,7 +12,11 @@ let timerInterval;
 let BASE_URL = 'https://arrowpay.io';
 const CURRENCIES = {
   'USD': '$',
-  'EUR': '€'
+  'EUR': '€',
+  'AUD': '$',
+  'GBP': '£',
+  'CHF': '',
+  'CNY': '¥'
 }
 
 export default class RaiCheckout extends React.Component {
@@ -209,6 +213,11 @@ export default class RaiCheckout extends React.Component {
       fiatCurrency = currency;
     }
 
+    let amountFiat = amount_usd;
+    if (currency !== 'XRB') {
+      amountFiat = (this.props.payment.amount / 100).toFixed(2);
+    }
+
     const fiatSymbol = CURRENCIES[fiatCurrency];
 
     return (
@@ -297,7 +306,7 @@ export default class RaiCheckout extends React.Component {
                           flex: 1
                         }}>
                           <div>Total</div>
-                          <div>{fiatSymbol}{amount_usd} {fiatCurrency}</div>
+                          <div>{fiatSymbol}{amountFiat} {fiatCurrency}</div>
                         </div>
                       </div>
                       <div style={{
