@@ -209,12 +209,12 @@ export default class RaiCheckout extends React.Component {
     const currency = this.props.payment.currency;
 
     let fiatCurrency = 'USD';
-    if (currency !== 'USD' && currency !== 'XRB') {
+    if (currency !== 'USD' && currency !== 'XRB' && currency !== 'NANO') {
       fiatCurrency = currency;
     }
 
     let amountFiat = amount_usd;
-    if (currency !== 'XRB') {
+    if (currency !== 'XRB' && currency !== 'NANO') {
       amountFiat = (this.props.payment.amount / 100).toFixed(2);
     }
 
@@ -328,7 +328,7 @@ export default class RaiCheckout extends React.Component {
                           </div>
                         </div>
                         <div className="px-3">
-                          <div style={{marginBottom: '0.25rem'}}>Amount (XRB)</div>
+                          <div style={{marginBottom: '0.25rem'}}>Amount (NANO)</div>
                           <div className="input-group copyable-group">
                             <input type="text" className="form-control" value={amount_XRB} disabled={true} />
                             <div className="input-group-btn">
@@ -373,7 +373,7 @@ export default class RaiCheckout extends React.Component {
                               </span>
                               <a
                                 className="btn btn-primary"
-                                href={`https://pay.raiwallet.com/?token=${this.state.token}`}
+                                href={`https://pay.nanowallet.io/?token=${this.state.token}`}
                                 target="_blank"
                                 style={{
                                 marginTop: '0.25rem',

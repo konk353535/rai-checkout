@@ -12,7 +12,7 @@ const App = () => (
       subTitle='Test Item Name'
       title='My Shop'
       itemId='test_item_id'
-      text='Pay with RaiBlocks $0.01'
+      text='Pay with NANO $0.01'
     />
   </div>
 );
