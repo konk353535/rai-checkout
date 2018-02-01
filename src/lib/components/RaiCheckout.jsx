@@ -379,7 +379,7 @@ export default class RaiCheckout extends React.Component {
                                 marginTop: '0.25rem',
                                 textDecoration: 'none'
                               }}>
-                                Open in raiwallet
+                                Open in nanowallet
                               </a>
                             </div>
                           }
